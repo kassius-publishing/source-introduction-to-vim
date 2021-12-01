@@ -1,8 +1,9 @@
 # Summary
 
+- [Introduçao](./introducao.md)
+
 # Entrando e Saindo do Vim
 
-- [Introduçao](./introducao.md)
 - [O Mais Basico](./basico.md)
 - [Breve Visao Geral](./breve-visao-geral.md)
 
