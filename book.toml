@@ -6,5 +6,8 @@ src = "src"
 title = "Introdução ao Vim"
 
 [build]
-build-dir = "docs"
+build-dir = "docs/"
 create-missing = true
+
+[output.html]
+base-url = "vim_intro-pt-br/"
