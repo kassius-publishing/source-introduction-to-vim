@@ -1,6 +1,6 @@
 # Summary
 
-[Introduçao](./README.md)
+- [Introduçao](./README.md)
 
 # Entrando e Saindo do Vim
 
