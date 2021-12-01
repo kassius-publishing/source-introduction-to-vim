@@ -8,12 +8,12 @@
 
 # Uma Visao mais Aprofundada
 
-- [Modos]()
-    - [Normal e Insert](./normal-e-insert.md)
-    - [Visual](./modo-visual.md)
-    - [Linha de comando](./linha-de-comando.md)
+[Modos](./modos-do-vim.md)
+- [Normal e Insert](./normal-e-insert.md)
+- [Visual](./modo-visual.md)
+- [Linha de comando](./linha-de-comando.md)
   
 # Como Sair do Vim
 
-- [Fechando o Editor]()
-    - [Como Sair do Editor]()
+[Fechando o Editor](./fechando-o-vim.md)
+- [Como Sair do Editor](./como-sair-do-vim.md)

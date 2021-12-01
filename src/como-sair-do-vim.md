@@ -1,0 +1,1 @@
+# Como Sair do Editor
