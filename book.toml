@@ -10,4 +10,4 @@ build-dir = "docs/"
 create-missing = true
 
 [output.html]
-site-url = "/vim_intro-pt-br/"
+site-url = "/introducao_ao_vim-pt-br/"
