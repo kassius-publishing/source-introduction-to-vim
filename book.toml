@@ -4,3 +4,7 @@ language = "pt"
 multilingual = false
 src = "src"
 title = "Introdução ao Vim"
+
+[build]
+build-dir = "docs"
+create-missing = true
