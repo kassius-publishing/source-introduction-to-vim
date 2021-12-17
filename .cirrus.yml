@@ -1,0 +1,32 @@
+container:
+  image: archlinux:latest
+  cpu: 2
+  memory: 2G
+  options: --user root
+task:
+  auto_cancellation: $CIRRUS_CHANGE_TITLE == 'auto from cirrus-ci'
+  environment:
+    DEPLOY_KEY: ENCRYPTED[!bd24de4b74e5a4064f4b72eef0aa7f0368edcb31fd049a82d075469b5160330b4a66582587cb41e7d8ada2d4e4500b9d!]
+  script:
+    - pacman -Syu --noconfirm
+    - pacman -Fy
+    - echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen
+    - echo 'LANG=en_US.UTF-8' > /etc/locale.conf        
+    - locale-gen
+    - pacman-key --init
+    - pacman -Syu --noconfirm git mdbook openssh
+    - git config --global push.default matching
+    - git config --global user.email "kassivs+git@gmail.com"
+    - git config --global user.name "I.M. - Cirrus-CI"
+    - mkdir -p ~/.ssh/
+    - echo -e "${DEPLOY_KEY}" > ~/.ssh/deploy_key
+    - chmod 600 ~/.ssh/deploy_key
+    - echo -e 'Host github.com\n    HostName github.com\n    User git\n    IdentityFile ~/.ssh/deploy_key' > ~/.ssh/config
+    - ssh-keyscan -t rsa github.com > ~/.ssh/known_hosts
+    #- git clone git@github.com:kassius-publishing/introducao_a_programacao_em_python-pt-br.git ~/.builddir
+    #- cd ~/.builddir
+    - mdbook clean
+    - mdbook build
+    - git add .
+    - git commit -a -m 'auto from cirrus-ci'
+    - git push
