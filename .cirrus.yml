@@ -4,12 +4,11 @@ container:
   memory: 2G
   options: --user root
 
-
-task:
+build_and_publish_task:
   auto_cancellation: $CIRRUS_CHANGE_TITLE == 'auto from cirrus-ci'
   environment:
     DEPLOY_KEY: ENCRYPTED[!bd24de4b74e5a4064f4b72eef0aa7f0368edcb31fd049a82d075469b5160330b4a66582587cb41e7d8ada2d4e4500b9d!]
-  script:
+  prepare_archlinux_script:
     - pacman -Syu --noconfirm
     - pacman -Fy
     - echo 'en_US.UTF-8 UTF-8' >> /etc/locale.gen
@@ -17,19 +16,26 @@ task:
     - locale-gen
     - pacman-key --init
     - pacman -Syu --noconfirm git mdbook openssh
-    - git config --global push.default matching
-    - git config --global user.email "kassivs+git@gmail.com"
-    - git config --global user.name "I.M. - Cirrus-CI"
+  prepare_ssh_script:
     - mkdir -p ~/.ssh/
     - echo -e "${DEPLOY_KEY}" > ~/.ssh/deploy_key
     - chmod 600 ~/.ssh/deploy_key
-    - echo -e 'Host github.com\n    HostName github.com\n    User git\n    IdentityFile ~/.ssh/deploy_key' > ~/.ssh/config
+    - echo 'Host github.com'                  >  ~/.ssh/config
+    - echo '  HostName github.com'            >> ~/.ssh/config
+    - echo '  User git'                       >> ~/.ssh/config
+    - echo '  IdentityFile ~/.ssh/deploy_key' >> ~/.ssh/config
     - ssh-keyscan -t rsa github.com > ~/.ssh/known_hosts
-    - rm -rf .git/
+  prepare_git_script:
+    - git config --global push.default matching
+    - git config --global user.email "kassivs+git@gmail.com"
+    - git config --global user.name "I.M. - Cirrus-CI"
+    #- rm -rf .git/
+  ptbr_build_script:
     - cd pt-BR/
     - mdbook clean
     - mdbook build
-    - cd docs/
+  ptbr_publish_script:
+    - cd pt-BR/docs/
     - git init
     - git remote add origin git@github.com:kassius-publishing/introducao_ao_vim.git
     - git add .
