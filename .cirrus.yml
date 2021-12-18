@@ -3,6 +3,8 @@ container:
   cpu: 2
   memory: 2G
   options: --user root
+
+
 task:
   auto_cancellation: $CIRRUS_CHANGE_TITLE == 'auto from cirrus-ci'
   environment:
@@ -23,10 +25,13 @@ task:
     - chmod 600 ~/.ssh/deploy_key
     - echo -e 'Host github.com\n    HostName github.com\n    User git\n    IdentityFile ~/.ssh/deploy_key' > ~/.ssh/config
     - ssh-keyscan -t rsa github.com > ~/.ssh/known_hosts
-    #- git clone git@github.com:kassius-publishing/introducao_a_programacao_em_python-pt-br.git ~/.builddir
-    #- cd ~/.builddir
+    - rm -rf .git/
+    - cd pt-BR/
     - mdbook clean
     - mdbook build
+    - cd docs/
+    - git init
+    - git remote add origin git@github.com:kassius-publishing/introducao_ao_vim.git
     - git add .
     - git commit -a -m 'auto from cirrus-ci'
-    - git push
+    - git push --force -u origin master
