@@ -7,7 +7,7 @@ title = "Introdução ao Vim"
 
 [build]
 build-dir = "docs/"
-create-missing = true
+create-missing = 
 
 [output.html]
 site-url = "/introducao_ao_vim/"
