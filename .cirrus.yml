@@ -27,7 +27,7 @@ build_and_publish_task:
     - ssh-keyscan -t rsa github.com > ~/.ssh/known_hosts
   prepare_git_script:
     - git config --global push.default matching
-    - git config --global user.email "kassivs+git@gmail.com"
+    - git config --global user.email "iacchus@users.noreply.github.com"
     - git config --global user.name "I.M. - Cirrus-CI"
     #- rm -rf .git/
   ptbr_build_script:
